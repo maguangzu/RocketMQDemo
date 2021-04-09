@@ -1,0 +1,45 @@
+//package com.example.demo.msg;
+//
+//import org.apache.rocketmq.client.producer.SendCallback;
+//import org.apache.rocketmq.client.producer.SendResult;
+//import org.apache.rocketmq.spring.core.RocketMQTemplate;
+//import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.beans.factory.annotation.Qualifier;
+//import org.springframework.messaging.Message;
+//import org.springframework.messaging.support.MessageBuilder;
+//import org.springframework.stereotype.Component;
+//
+//@Component
+//public class Producer {
+//
+//    @Autowired
+//    //@Qualifier("rocketMQTemplate")
+//    private RocketMQTemplate t;
+//
+//    public void send() {
+//        //发送消息
+//        t.convertAndSend("Topic1:TagA", "Hello world! -convertAndSend");
+//
+//        //发送spring的Message
+//        t.send("Topic1:TagA", MessageBuilder.withPayload("Hello world! -send").build());
+//
+//        //发送异步消息
+//        t.asyncSend("Topic1:TagA", "Hello world! -asyncSend", new SendCallback() {
+//            @Override
+//            public void onSuccess(SendResult sendResult) {
+//                System.out.println("发送成功 -asyncSend");
+//            }
+//
+//            @Override
+//            public void onException(Throwable throwable) {
+//                System.out.println("发送失败 -asyncSend");
+//            }
+//        });
+//
+//        //发送顺序消息
+//        t.syncSendOrderly("Topic1", "98456237,创建 -syncSendOrderly", "98456237");
+//        t.syncSendOrderly("Topic1", "98456237,支付 -syncSendOrderly", "98456237");
+//        t.syncSendOrderly("Topic1", "98456237,完成 -syncSendOrderly", "98456237");
+//    }
+//
+//}
