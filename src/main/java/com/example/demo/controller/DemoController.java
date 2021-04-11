@@ -1,10 +1,13 @@
 package com.example.demo.controller;
 
 import com.example.demo.bean.Order;
+import org.apache.rocketmq.client.QueryResult;
+import org.apache.rocketmq.client.consumer.DefaultMQPushConsumer;
 import org.apache.rocketmq.client.producer.DefaultMQProducer;
 import org.apache.rocketmq.client.producer.SendResult;
 import org.apache.rocketmq.client.producer.SendStatus;
 import org.apache.rocketmq.common.message.Message;
+import org.apache.rocketmq.common.message.MessageExt;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,8 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import java.math.BigDecimal;
-import java.util.Calendar;
-import java.util.UUID;
+import java.util.*;
 
 
 @Controller
@@ -22,8 +24,11 @@ public class DemoController {
     @Resource
     private DefaultMQProducer producer;
 
+    @Resource
+    private DefaultMQPushConsumer consumer;
+
     @GetMapping("/hello")
-    public String getMsg() {
+    public String getTest() {
         return "hello rocketmq";
     }
 
@@ -37,13 +42,13 @@ public class DemoController {
         try {
             msg = new Message("test-demo"
                     , "20210409"
-                    , UUID.randomUUID().toString()
+                    , order.getOrderName()
                     , order.toString().getBytes("utf-8"));
             SendResult result = producer.send(msg);
             if (result.getSendStatus() == SendStatus.SEND_OK) {
                 System.out.println(str);
                 System.out.println(result.toString());
-                return str;
+                return result.toString();
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -51,5 +56,4 @@ public class DemoController {
         }
         return str;
     }
-
 }

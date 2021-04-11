@@ -62,7 +62,7 @@ public class SpringConfig {
         consumer.setConsumeFromWhere(ConsumeFromWhere.CONSUME_FROM_LAST_OFFSET);
         consumer.setConsumeConcurrentlyMaxSpan(2000);  //单队列并行消费最大跨度，用于流控
         consumer.setPullThresholdForQueue(1000);       // 一个queue最大消费的消息个数，用于流控
-        consumer.setPullInterval(1000);                //消息拉取时间间隔，默认为0，即拉完一次立马拉第二次，单位毫秒
+        consumer.setPullInterval(10000);                //消息拉取时间间隔，默认为0，即拉完一次立马拉第二次，单位毫秒
         consumer.setMessageModel(MessageModel.CLUSTERING);  //消费模式，集群消费
 
 
